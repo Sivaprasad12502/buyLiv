@@ -1,0 +1,293 @@
+@import "../../styles/variables.scss";
+
+// Color Variables
+
+// Hero Section
+
+// Category Section
+.section {
+  margin-top: 0;
+  padding: 30px 20px;
+  background: $white;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 16px;
+
+    .categoryCard {
+      cursor: pointer;
+      background: $white;
+      border: 1px solid $primary-color;
+      border-radius: 15px;
+      // padding: 10px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      // .categoryImage {
+      //   width: 90px;
+      //   height: 90px;
+      //   object-fit: cover;
+      //   border-radius: 50%;
+      //   margin-bottom: 12px;
+      //   border: 3px solid $bg-light;
+      // }
+
+      .categoryLabel {
+        padding: 8px 10px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+// Product Section
+.productSection {
+  margin-top: 20px;
+  padding: 30px 20px;
+  background: $bg-light;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .productCard {
+    cursor: pointer;
+    background: $white;
+    border: 1px solid $border-color;
+    // border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+      .productImage {
+        transform: scale(1.05);
+      }
+    }
+
+    .productImage {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      background: $bg-light;
+    }
+
+    .productInfo {
+      padding: 16px;
+
+      h4 {
+        font-size: 16px;
+        font-weight: 500;
+        color: $text-primary;
+        margin-bottom: 8px;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      span {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      p {
+        font-size: 18px;
+        font-weight: 700;
+        color: $text-primary;
+
+        &::before {
+          content: "₹";
+          font-weight: 500;
+          margin-right: 2px;
+        }
+      }
+    }
+  }
+  /* Pagination Wrapper */
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin: 30px auto;
+    padding: 12px 0;
+    font-family: "Poppins", sans-serif;
+  }
+
+  /* Buttons */
+  .pagination-controls button {
+    border-radius: 50%;
+    padding: 10px 18px;
+    font-size: 15px;
+    border: none;
+    background: $gr-gradient;
+    color: $white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    // border: 1px solid rgb(150, 149, 149);
+    font-weight: bold;
+  }
+
+  .pagination-controls button:hover:not(:disabled) {
+    scale: 1.1;
+  }
+
+  /* Disabled button */
+  .pagination-controls button:disabled {
+    background: #b5b5b5;
+    color: #eee;
+    cursor: not-allowed;
+  }
+
+  /* Page text */
+  .pagination-controls span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+  }
+}
+
+// CTA Section
+.ctaSection {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 50px 40px;
+  // background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+  background: $gr-gradient;
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid $border-color;
+  box-shadow: 0 4px 12px rgba(255, 159, 0, 0.15);
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 12px;
+  }
+
+  p {
+    color: $white;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ctaButton {
+    margin-top: 15px;
+    padding: 14px 32px;
+    background:$white;
+    color: $border-color;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 159, 0, 0.3);
+
+    &:hover {
+      // background: darken($color, 8%);
+      transform: translateY(-2px);
+      // box-shadow: 0 6px 12px rgba(255, 159, 0, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .section .categoryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+
+    .categoryCard .categoryImage {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .productSection .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .ctaSection {
+    padding: 30px 20px;
+
+    h2 {
+      font-size: 22px;
+    }
+  }
+}
+@media (max-width: 480px) {
+  section {
+    .categoryGrid {
+      display: flex !important;
+      overflow-x: scroll;
+      scrollbar-width: none;
+      white-space: nowrap;
+    }
+  }
+  .hero {
+    //     display: flex;
+    //     background: linear-gradient(135deg, #2874f0 0%, #1e5bc6 100%);
+    //     padding: 0;
+    //     margin-bottom: 40px;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     position: sticky;
+    //     z-index: 1;
+    // top: 58px;
+  }
+}

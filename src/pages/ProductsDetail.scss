@@ -1,0 +1,202 @@
+@import "../styles/variables"; // optional if you keep variables separate
+
+.product-detail {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: $white;
+
+  /* ================= IMAGE SECTION ================= */
+  &__images {
+    display: flex;
+    gap: 16px;
+
+    .thumbnail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+          border-color: $primary-color;
+        }
+
+        &.active {
+          border: 2px solid $primary-color;
+        }
+      }
+    }
+
+    .main-image {
+      flex: 1;
+      border: 1px solid $border-color;
+      border-radius: 12px;
+      padding: 16px;
+      background: $bg-light;
+
+      img {
+        width: 100%;
+        height: 420px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  /* ================= INFO SECTION ================= */
+  &__info {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: $text-primary;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 26px;
+      font-weight: 700;
+      color: $success-color;
+      margin-bottom: 12px;
+    }
+
+    .short-desc {
+      color: $text-secondary;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .description {
+      margin-bottom: 24px;
+
+      h4 {
+        margin-bottom: 8px;
+        color: $text-primary;
+      }
+
+      p {
+        color: $text-secondary;
+        line-height: 1.6;
+      }
+    }
+
+    /* ================= QUANTITY ================= */
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+
+      span {
+        font-weight: 600;
+        color: $text-primary;
+      }
+
+      .qty-control {
+        display: flex;
+        align-items: center;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        overflow: hidden;
+
+        button {
+          width: 36px;
+          height: 36px;
+          background: $white;
+          border: none;
+          cursor: pointer;
+          font-size: 18px;
+
+          &:hover {
+            background: $bg-light;
+          }
+        }
+
+        span {
+          width: 40px;
+          text-align: center;
+          font-weight: 600;
+        }
+      }
+    }
+
+    /* ================= ACTION BUTTONS ================= */
+    .actions {
+      display: flex;
+      gap: 16px;
+
+      button {
+        flex: 1;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 8px;
+        // cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .add-to-cart {
+        background: $white;
+        border: 1px solid $primary-color;
+        color: $primary-color;
+
+        &:hover {
+          background: rgba(40, 116, 240, 0.05);
+        }
+      }
+
+      .buy-now {
+        background: $primary-color;
+        border: none;
+        color: $white;
+
+        &:hover {
+          background: $primary-hover;
+        }
+      }
+    }
+
+    /* ================= ACTIVATION WARNING ================= */
+    .activation-warning {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fff7ed;
+      color: $warning-color;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+
+    &__images {
+      flex-direction: column;
+
+      .thumbnail-list {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .main-image img {
+        height: 300px;
+      }
+    }
+  }
+}

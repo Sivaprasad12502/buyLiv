@@ -1,0 +1,157 @@
+@import '../../styles/variables.scss';
+.footer {
+  background: #000;
+  color: #ccc;
+  margin-top: 80px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 20px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.footer-logo {
+  color: $border-color;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+.footer-section {
+  h4 {
+    color: $border-color;
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 10px;
+
+      a {
+        color: #aaa;
+        text-decoration: none;
+        font-size: 14px;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+/* ===== SOCIAL ICONS ===== */
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+
+  a {
+    width: 36px;
+    height: 36px;
+    background: #111;
+    color: $border-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 16px;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #333;
+    }
+  }
+}
+
+/* ===== NEWSLETTER ===== */
+.newsletter {
+  p {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 12px;
+  }
+}
+
+.newsletter-form {
+  display: flex;
+
+  input {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: #111;
+    color: #fff;
+    border: 1px solid $border-color;
+  }
+
+  button {
+    padding: 10px 16px;
+    background: $gr-gradient;
+    color: $white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: #e5e5e5;
+    }
+  }
+}
+
+/* ===== TRUST STRIP ===== */
+.footer-trust {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 15px 10px;
+  // border-top: 1px solid $border-color;
+  font-size: 14px;
+  svg{
+    color: $border-color;
+
+  }
+}
+
+/* ===== BOTTOM ===== */
+.footer-bottom {
+  // border-top: 1px solid $border-color;
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .footer-trust {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+
+    button {
+      margin-top: 8px;
+    }
+  }
+}

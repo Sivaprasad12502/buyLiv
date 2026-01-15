@@ -1,0 +1,36 @@
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #f9f9f9;
+}
+
+.loading-text {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: rgb(56, 239, 125) ;
+
+  span {
+    display: inline-block;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+}
+
+/* Character animation */
+@keyframes bounce {
+  0% {
+    // transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    // transform: translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    // transform: translateY(0);
+    opacity: 0.5;
+  }
+}

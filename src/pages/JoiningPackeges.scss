@@ -1,0 +1,137 @@
+// ===== COLORS (as provided) =====
+$bg-gradiant: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$color: #667eea;
+$shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+$gr-gradient: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+$primary-color: #2874f0;
+$primary-hover: #1e5bc6;
+
+$text-primary: #212121;
+$text-secondary: #878787;
+$border-color: #e0e0e0;
+$bg-light: #f1f3f6;
+$success-color: #388e3c;
+$warning-color: #ff6161;
+$white: #ffffff;
+
+// ===== PAGE =====
+.joining-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.joining-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 8px;
+}
+
+.joining-subtitle {
+  color: $text-secondary;
+  font-size: 14px;
+}
+
+// ===== STATUS =====
+.status {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 500;
+
+  &.pending {
+    color: $warning-color;
+  }
+
+  &.success {
+    color: $success-color;
+  }
+}
+
+// ===== GRID =====
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 32px;
+}
+
+// ===== CARD =====
+.package-card {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow;
+  }
+}
+
+// ===== INFO =====
+.package-info {
+  padding: 18px;
+  flex-grow: 1;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 6px;
+  }
+
+  .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: 8px;
+  }
+
+  .desc {
+    font-size: 14px;
+    color: $text-secondary;
+    line-height: 1.5;
+  }
+}
+
+// ===== BUTTON =====
+.buy-btn {
+  margin: 18px;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: $bg-gradiant;
+  color: $white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $primary-hover;
+    box-shadow: 0 6px 18px rgba(40, 116, 240, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .joining-title {
+    font-size: 22px;
+  }
+
+  .package-info {
+    padding: 16px;
+  }
+
+  .buy-btn {
+    margin: 14px;
+  }
+}

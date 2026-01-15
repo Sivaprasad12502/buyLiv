@@ -1,0 +1,152 @@
+// Colors (as provided)
+$bg-gradiant: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$color: #667eea;
+$shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+$gr-gradient: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+$primary-color: #2874f0;
+$primary-hover: #1e5bc6;
+
+$text-primary: #212121;
+$text-secondary: #878787;
+$border-color: #e0e0e0;
+$bg-light: #f1f3f6;
+$success-color: #388e3c;
+$warning-color: #ff6161;
+$white: #ffffff;
+
+/* Wrapper */
+.checkout-wrapper {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 16px;
+}
+
+/* Title */
+.checkout-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: $text-primary;
+}
+
+/* Grid */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+/* Card */
+.checkout-card {
+  background: $white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: $shadow;
+
+  h3 {
+    font-size: 18px;
+    color: $primary-color;
+    margin-bottom: 14px;
+  }
+}
+
+/* Address */
+.address-box {
+  background: $bg-light;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 16px;
+
+  p {
+    font-size: 14px;
+    color: $text-secondary;
+    line-height: 1.6;
+  }
+
+  .name {
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+/* Product */
+.product-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid $border-color;
+  }
+
+  .product-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  .product-type {
+    font-size: 12px;
+    color: $text-secondary;
+  }
+}
+
+/* Price rows */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: $text-secondary;
+  margin-bottom: 10px;
+
+  &.total {
+    font-weight: 600;
+    color: $text-primary;
+    border-top: 1px dashed $border-color;
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+}
+
+/* Button */
+.checkout-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: $gr-gradient;
+  color: $white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $primary-hover;
+    box-shadow: 0 6px 18px rgba(40, 116, 240, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Loading */
+.checkout-loading {
+  text-align: center;
+  padding: 60px;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+}
