@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { toast } from "react-toastify";
+import './Login.scss'
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -34,31 +35,18 @@ export default function Login() {
 
   return (
     <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#f5f5f5",
-      }}
+      className="login-page"
     >
       <div
-        style={{
-          width: "100%",
-          maxWidth: "380px",
-          padding: "30px",
-          background: "#fff",
-          borderRadius: "8px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        }}
+        className="login-container"
       >
-        <h2 style={{ marginBottom: "20px", textAlign: "center" }}>
+        <h2 >
           Login
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "15px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>
+          <div className="form-group">
+            <label>
               Username
             </label>
             <input
@@ -78,8 +66,8 @@ export default function Login() {
             />
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>
+          <div className="form-group">
+            <label >
               Password
             </label>
             <input
@@ -90,12 +78,7 @@ export default function Login() {
                 setForm({ ...form, password: e.target.value })
               }
               required
-              style={{
-                width: "100%",
-                padding: "10px",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-              }}
+             
             />
           </div>
 
@@ -108,15 +91,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            style={{
-              width: "100%",
-              padding: "10px",
-              background: loading ? "#999" : "#000",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: loading ? "not-allowed" : "pointer",
-            }}
+            
           >
             {loading ? "Logging in..." : "Login"}
           </button>

@@ -1,0 +1,136 @@
+// Variables
+@import '../styles/variables.scss';
+
+// Login Page Wrapper
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-gradiant;
+  padding: 20px;
+
+  .login-container {
+    width: 100%;
+    max-width: 400px;
+    background: $white;
+    border-radius: 10px;
+    box-shadow: $shadow;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      color: $text-primary;
+      margin-bottom: 30px;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .form-group {
+        margin-bottom: 20px;
+
+        label {
+          display: block;
+          margin-bottom: 8px;
+          color: $text-secondary;
+          font-weight: 500;
+        }
+
+        input {
+          width: 100%;
+          padding: 12px 15px;
+          border: 1px solid $border-color;
+          border-radius: 6px;
+          font-size: 16px;
+          transition: border 0.3s ease, box-shadow 0.3s ease;
+
+          &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 6px rgba($primary-color, 0.3);
+            outline: none;
+          }
+        }
+      }
+
+      .error-message {
+        color: $warning-color;
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: $primary-color;
+        color: $white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: $primary-hover;
+        }
+
+        &:disabled {
+          background: lighten($primary-color, 20%);
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: $text-secondary;
+
+      a {
+        color: $primary-color;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media screen and (max-width: 480px) {
+  .login-page {
+    .login-container {
+      padding: 30px;
+
+      h2 {
+        font-size: 24px;
+      }
+
+      form {
+        .form-group input {
+          font-size: 14px;
+          padding: 10px 12px;
+        }
+
+        button {
+          font-size: 14px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
