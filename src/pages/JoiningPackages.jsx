@@ -75,7 +75,7 @@ export default function JoiningPackages() {
               <div className="package-info">
                 <h3>{pkg.name}</h3>
                 <p className="price">₹{pkg.price}</p>
-                <p className="desc">{pkg.short_description}</p>
+                <p className="desc">{pkg.long_description}</p>
               </div>
 
               {joiningStatus === null && (

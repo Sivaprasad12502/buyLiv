@@ -103,7 +103,7 @@ const actions = {
 
 const primaryBtn = {
   padding: "12px 20px",
-  background: "#000",
+  background: "linear-gradient(135deg, #38ef7d 0%, #11998e 100%)",
   color: "#fff",
   border: "none",
   borderRadius: "8px",
@@ -114,8 +114,8 @@ const primaryBtn = {
 const secondaryBtn = {
   padding: "12px 20px",
   background: "#fff",
-  color: "#000",
-  border: "1px solid #000",
+  color: "#38ef7d",
+  border: "1px solid #38ef7d",
   borderRadius: "8px",
   cursor: "pointer",
   fontWeight: "600",

@@ -1,19 +1,5 @@
 // ===== COLORS (as provided) =====
-$bg-gradiant: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$color: #667eea;
-$shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-$gr-gradient: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
-$primary-color: #2874f0;
-$primary-hover: #1e5bc6;
-
-$text-primary: #212121;
-$text-secondary: #878787;
-$border-color: #e0e0e0;
-$bg-light: #f1f3f6;
-$success-color: #388e3c;
-$warning-color: #ff6161;
-$white: #ffffff;
-
+@import '../styles/variables.scss';
 // ===== PAGE =====
 .joining-container {
   max-width: 1100px;
@@ -26,6 +12,7 @@ $white: #ffffff;
   font-weight: 600;
   color: $text-primary;
   margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
 .joining-subtitle {
@@ -60,7 +47,7 @@ $white: #ffffff;
 .package-card {
   background: $white;
   border: 1px solid $border-color;
-  border-radius: 14px;
+  // border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -95,6 +82,9 @@ $white: #ffffff;
     font-size: 14px;
     color: $text-secondary;
     line-height: 1.5;
+    overflow: scroll;
+    scrollbar-width: none;
+    height: 100px;
   }
 }
 
@@ -104,7 +94,7 @@ $white: #ffffff;
   padding: 14px;
   border-radius: 10px;
   border: none;
-  background: $bg-gradiant;
+  background: $gr-gradient;
   color: $white;
   font-size: 15px;
   font-weight: 600;
@@ -112,7 +102,7 @@ $white: #ffffff;
   transition: all 0.3s ease;
 
   &:hover {
-    background: $primary-hover;
+    
     box-shadow: 0 6px 18px rgba(40, 116, 240, 0.35);
   }
 

@@ -7,6 +7,16 @@ import { fetchProductById } from "../api/productApi";
 import axiosClient from "../api/axiosClient";
 import { MEDIA_BASE_URL } from "../utils/constants";
 import "./CheckoutNormal.scss";
+import Loading from "../components/Loader/Loading";
+import {
+  FaMapMarkerAlt,
+  FaUser,
+  FaCity,
+  FaPhoneAlt,
+  FaHashtag,
+} from "react-icons/fa";
+
+import { toast } from "react-toastify";
 
 export default function CheckoutNormal() {
   const { productId } = useParams();
@@ -69,16 +79,16 @@ export default function CheckoutNormal() {
         await axiosClient.post("/orders/orders/place/", {});
       }
       navigate("/order-success");
-    } catch {
-      alert("Failed to place order");
+    } catch (error) {
+      toast.error(error.response?.data?.error || "Failed to place order");
     } finally {
       setPlacing(false);
     }
   };
 
-  if (!profile) return <p>Loading...</p>;
-  if(cartWithSubtotal){
-    console.log("cartWithsubtotal:",cartWithSubtotal)
+  if (!profile) return <Loading />;
+  if (cartWithSubtotal) {
+    console.log("cartWithsubtotal:", cartWithSubtotal);
   }
 
   return (
@@ -86,20 +96,39 @@ export default function CheckoutNormal() {
       <div className="checkout">
         {/* LEFT */}
         <div className="checkout__left">
-          {profile.profile.address && (
+          {/* {profile.profile.address && ( */}
             <div className="checkout__card">
-              <h3>Delivery Address</h3>
+              <h3>
+                <FaMapMarkerAlt style={{ marginRight: "8px" }} />
+                Delivery Address
+              </h3>
+
               <p>
-                <strong>{profile.profile.full_name}</strong>
+                <FaUser style={{ marginRight: "6px" }} />
+                <strong>{profile.profile.full_name || "N/A"}</strong>
               </p>
-              <p>{profile.profile.address}</p>
+
               <p>
-                {profile.profile.city}, {profile.profile.state}
+                <FaMapMarkerAlt style={{ marginRight: "6px" }} />
+                {profile.profile.address || "N/A"}
               </p>
-              <p>{profile.profile.pincode}</p>
-              <p>Phone: {profile.profile.phone}</p>
+
+              <p>
+                <FaCity style={{ marginRight: "6px" }} />
+                {profile.profile.city || "N/A"}, {profile.profile.state || "N/A"}
+              </p>
+
+              <p>
+                <FaHashtag style={{ marginRight: "6px" }} />
+                {profile.profile.pincode || "N/A"}
+              </p>
+
+              <p>
+                <FaPhoneAlt style={{ marginRight: "6px" }} />
+                {profile.profile.phone || "N/A"}
+              </p>
             </div>
-          )}
+          {/* )} */}
         </div>
 
         {/* RIGHT */}

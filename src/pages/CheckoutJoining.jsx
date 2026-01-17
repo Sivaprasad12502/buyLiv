@@ -4,6 +4,9 @@ import MainLayout from "../layouts/MainLayout";
 import { fetchProfile } from "../api/profileApi";
 import { buyJoiningPackage } from "../api/orderApi";
 import "./CheckoutJoining.scss";
+import { FaMapMarkerAlt, FaUser, FaCity } from "react-icons/fa";
+import { toast } from "react-toastify";
+import Loading from "../components/Loader/Loading";
 
 export default function CheckoutJoining() {
   const [profile, setProfile] = useState(null);
@@ -18,33 +21,53 @@ export default function CheckoutJoining() {
   }, []);
 
   const placeOrder = async () => {
-    await buyJoiningPackage(product.id, 1);
-    alert("Order placed. Waiting for admin approval.");
-    navigate("/");
+    try {
+      await buyJoiningPackage(product.id, 1);
+      toast.success("Order placed. Waiting for admin approval.");
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.error ||
+          "Failed to place order. Please try again."
+      );
+      console.log("order palce error:", error);
+    }
   };
   console.log("profile in checkout joining:", profile);
-  if (!profile) return <p className="checkout-loading">Loading...</p>;
+  if (!profile) return <Loading/>;
 
   return (
     <MainLayout>
       <div className="checkout-wrapper">
-        <h2 className="checkout-title">Checkout</h2>
+        {/* <h2 className="checkout-title"></h2> */}
 
         <div className="checkout-grid">
           {/* LEFT: Address */}
-          {profile.profile.address && (
+         
             <div className="checkout-card">
-              <h3>Delivery Address</h3>
+              <h3>
+                <FaMapMarkerAlt style={{ marginRight: "8px" }} />
+                Delivery Address
+              </h3>
 
               <div className="address-box">
-                <p className="name">{profile.profile.full_name}</p>
-                <p>{profile.profile.address}</p>
+                <p className="name">
+                  <FaUser style={{ marginRight: "6px" }} />
+                  {profile.profile.full_name || " N/A"}
+                </p>
+
                 <p>
-                  {profile.profile.city} {profile.profile.state}
+                  <FaMapMarkerAlt style={{ marginRight: "6px" }} />
+                  {profile.profile.address || " N/A"}
+                </p>
+
+                <p>
+                  <FaCity style={{ marginRight: "6px" }} />
+                  {profile.profile.city || " N/A"}, {profile.profile.state || " N/A"}
                 </p>
               </div>
             </div>
-          )}
+          
 
           {/* RIGHT: Order Summary */}
           <div className="checkout-card summary-card">

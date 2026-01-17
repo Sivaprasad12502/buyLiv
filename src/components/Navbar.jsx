@@ -32,6 +32,8 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { cartCount, search, setSearch } = useAuth();
   const [profile, setProfile] = useState(null);
+  const productId=location.pathname.split("/products/")[1]||null;
+  console.log("productId:", productId, 'in navbar')
 
   useEffect(() => {
     if (!token) return;
@@ -94,7 +96,7 @@ export default function Navbar() {
 
         <NavLink to="/products" className="navLink ">
           <FiPackage className="navIcon" />
-          <span>Products</span>
+          <span>{location.pathname===`/products/${productId}`?'product':'products'}</span>
         </NavLink>
 
         {!token ? (
