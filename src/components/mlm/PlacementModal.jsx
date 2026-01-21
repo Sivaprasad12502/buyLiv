@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../../api/axiosClient";
+import { createPortal } from "react-dom";
 import "./PlacementModal.scss";
 import { FaInfo } from "react-icons/fa6";
 import { FiInfo } from "react-icons/fi";
@@ -119,8 +120,12 @@ export default function PlacementModal({ parentId, position, onClose }) {
     }
   };
 
-  return (
-    <div className="placement-overlay">
+  return createPortal (
+    <div 
+      className="placement-overlay"
+      onMouseDown={(e) => e.stopPropagation()}
+      onMouseMove={(e) => e.stopPropagation()}
+    >
       <div className="placement-modal">
         <div className="modal-header">
           <h3>Place User ({position})</h3>
@@ -239,7 +244,8 @@ export default function PlacementModal({ parentId, position, onClose }) {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+     document.getElementById('modal-root')
   );
 }
 
@@ -260,6 +266,7 @@ function Input({ label, type = "text", required = false, onChange }) {
         className="form-input"
       />
     </div>
+   
   );
 }
 

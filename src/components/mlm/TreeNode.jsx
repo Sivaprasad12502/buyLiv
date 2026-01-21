@@ -2,11 +2,11 @@ import { useState } from "react";
 import PlacementModal from "./PlacementModal";
 import "./Tree.css";
 
-export default function TreeNode({ node }) {
+export default function TreeNode({ node, }) {
   const [openPlacement, setOpenPlacement] = useState(null);
 
   if (!node) return null;
-  console.log("tree node:",node)
+  console.log("tree node:", node);
 
   return (
     <li className="tree-li">
@@ -16,6 +16,8 @@ export default function TreeNode({ node }) {
       <div
         className={`node-card ${node.is_activated ? "active" : "inactive"}`}
         onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e)=>e.stopPropagation()}
+
       >
         <strong>{node.username}</strong>
         <span>{node.referral_code}</span>
@@ -30,10 +32,13 @@ export default function TreeNode({ node }) {
         ) : (
           <li>
             <div className="line"></div>
-           
+
             <div
               className="node-card empty-node"
-              onClick={() => setOpenPlacement("LEFT")}
+              onClick={() => {
+                setOpenPlacement("LEFT");
+               
+              }}
             >
               ➕<span>Place Left</span>
             </div>
@@ -48,7 +53,9 @@ export default function TreeNode({ node }) {
             <div className="line"></div>
             <div
               className="node-card empty-node"
-              onClick={() => setOpenPlacement("RIGHT")}
+              onClick={() => {setOpenPlacement("RIGHT")
+                
+              }}
             >
               ➕<span>Place Right</span>
             </div>
@@ -61,7 +68,10 @@ export default function TreeNode({ node }) {
         <PlacementModal
           parentId={node.id}
           position={openPlacement}
-          onClose={() => setOpenPlacement(null)}
+          onClose={() => {
+            setOpenPlacement(null);
+            
+          }}
         />
       )}
     </li>
