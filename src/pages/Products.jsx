@@ -13,12 +13,14 @@ import ImageSlider from "../components/ImageSlider/ImageSlider";
 import "./Products.scss";
 import { useAuth } from "../auth/AuthContext";
 import SearchBar from "../components/SearchBar/SearchBar";
+import Loading from "../components/Loader/Loading";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("ALL");
+  const [loading,setLoading]=useState(true)
 
   const [searching, setSearching] = useState(false);
 
@@ -32,7 +34,7 @@ export default function Products() {
     fetchNormalProducts().then((data) => {
       setProducts(data);
       setFilteredProducts(data);
-    });
+    }).finally(()=>setLoading(false));
 
     fetchCategories().then((data) => {
       const filtered = data.filter(
@@ -116,6 +118,9 @@ export default function Products() {
 
     navigate(`/checkout/normal/${productId}`);
   };
+  if(loading){
+    return <Loading/>
+  }
 
   return (
     <MainLayout>

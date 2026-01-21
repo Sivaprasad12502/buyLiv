@@ -7,6 +7,27 @@ import {
   fetchDownlines,
   fetchWallets,
 } from "../api/mlmApi";
+import { 
+  FiTrendingUp, 
+  FiUsers, 
+  FiDollarSign, 
+  FiAward,
+  FiCalendar,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiGitBranch,
+  FiCreditCard,
+  FiBarChart2,
+  FiActivity,
+  FiUserPlus,
+  FiPieChart
+} from "react-icons/fi";
+import { BiWallet, BiNetworkChart, BiUser } from "react-icons/bi";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import Loading from "../components/Loader/Loading";
+import "./Dashboard.scss";
+import { FaRubleSign } from "react-icons/fa";
+import { FaRupeeSign } from "react-icons/fa6";
 
 export default function Dashboard() {
   const [profile, setProfile] = useState(null);
@@ -48,181 +69,289 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile, activeTab, date]);
 
-  if (!profile) return <p>Loading dashboard...</p>;
+  if (!profile) return <Loading />;
 
   return (
     <MainLayout>
-      <h2>Dashboard</h2>
-
-      <p>
-        Welcome, <strong>{profile.username}</strong>
-      </p>
-
-      {!profile.is_activated && (
-        <p style={{ color: "orange" }}>
-          Please activate your account to view MLM data.
-        </p>
-      )}
-
-      {/* ================= TABS ================= */}
-      {profile.is_activated && (
-        <>
-          <div style={tabBar}>
-            <Tab label="Summary" value="SUMMARY" activeTab={activeTab} setActiveTab={setActiveTab} />
-            <Tab label="Direct Referrals" value="REFERRALS" activeTab={activeTab} setActiveTab={setActiveTab} />
-            <Tab label="Genealogy" value="GENEOLOGY" activeTab={activeTab} setActiveTab={setActiveTab} />
-            <Tab label="Wallet History" value="WALLETS" activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="dashboard-page">
+        <div className="dashboard-container">
+          
+          {/* Header Section */}
+          <div className="dashboard-header">
+            <div className="header-content">
+              <FiBarChart2 className="header-icon" />
+              <div className="header-info">
+                <h1>Dashboard</h1>
+                <p className="welcome-text">
+                  Welcome back, <strong>{profile.username}</strong>!
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* ================= SUMMARY ================= */}
-          {activeTab === "SUMMARY" && earnings && (
-            <>
-              <div style={{ margin: "15px 0" }}>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                />
+          {/* Activation Warning */}
+          {!profile.is_activated && (
+            <div className="activation-warning">
+              <FiAlertCircle className="warning-icon" />
+              <div className="warning-content">
+                <h3>Account Not Activated</h3>
+                <p>Please activate your account to access MLM features and earnings data.</p>
               </div>
-
-              <div style={grid}>
-                <Card title="Direct Referrals" value={earnings.direct_referral_count} />
-                <Card title="Direct Earnings" value={`₹${earnings.direct_referral_earned}`} />
-                <Card title="Pair Count" value={earnings.pair_count} />
-                <Card title="Pair Earnings" value={`₹${earnings.pair_earned}`} />
-              </div>
-
-              <h3 style={{ marginTop: "20px" }}>
-                Total Earned: ₹{earnings.total_earned}
-              </h3>
-            </>
+            </div>
           )}
 
-          {/* ================= DIRECT REFERRALS ================= */}
-          {activeTab === "REFERRALS" && referrals && (
-            <Table
-              headers={["Username", "Email", "Status", "Joined"]}
-              rows={referrals.results.map((r) => [
-                r.username,
-                r.email,
-                r.is_activated ? "Activated" : "Pending",
-                new Date(r.created_at).toLocaleDateString(),
-              ])}
-            />
-          )}
-
-          {/* ================= GENEALOGY ================= */}
-          {activeTab === "GENEOLOGY" && downlines && (
+          {/* Tabs Navigation */}
+          {profile.is_activated && (
             <>
-              {Object.entries(downlines).map(([level, data]) =>
-                level.startsWith("level") ? (
-                  <div key={level} style={{ marginBottom: "15px" }}>
-                    <h4>
-                      {level.replace("_", " ").toUpperCase()} ({data.count})
-                    </h4>
-                    <ul>
-                      {data.users.map((u) => (
-                        <li key={u.referral_code}>
-                          {u.username} — {u.referral_code}
-                        </li>
-                      ))}
-                    </ul>
+              <div className="tabs-container">
+                <div className="tabs-nav">
+                  <Tab 
+                    label="Summary" 
+                    icon={FiPieChart}
+                    value="SUMMARY" 
+                    activeTab={activeTab} 
+                    setActiveTab={setActiveTab} 
+                  />
+                  <Tab 
+                    label="Direct Referrals" 
+                    icon={FiUserPlus}
+                    value="REFERRALS" 
+                    activeTab={activeTab} 
+                    setActiveTab={setActiveTab} 
+                  />
+                  <Tab 
+                    label="Genealogy" 
+                    icon={BiNetworkChart}
+                    value="GENEOLOGY" 
+                    activeTab={activeTab} 
+                    setActiveTab={setActiveTab} 
+                  />
+                  <Tab 
+                    label="Wallet History" 
+                    icon={BiWallet}
+                    value="WALLETS" 
+                    activeTab={activeTab} 
+                    setActiveTab={setActiveTab} 
+                  />
+                </div>
+              </div>
+
+              {/* Summary Tab */}
+              {activeTab === "SUMMARY" && earnings && (
+                <div className="tab-content">
+                  <div className="date-selector">
+                    <FiCalendar className="date-icon" />
+                    <input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="date-input"
+                    />
                   </div>
-                ) : null
+
+                  <div className="stats-grid">
+                    <Card 
+                      title="Direct Referrals" 
+                      value={earnings.direct_referral_count} 
+                      icon={FiUsers}
+                      color="blue"
+                    />
+                    <Card 
+                      title="Direct Earnings" 
+                      value={`₹${earnings.direct_referral_earned}`} 
+                      icon={FaRupeeSign}
+                      color="green"
+                    />
+                    <Card 
+                      title="Pair Count" 
+                      value={earnings.pair_count} 
+                      icon={FiAward}
+                      color="purple"
+                    />
+                    <Card 
+                      title="Pair Earnings" 
+                      value={`₹${earnings.pair_earned}`} 
+                      icon={FiTrendingUp}
+                      color="orange"
+                    />
+                  </div>
+
+                  <div className="total-earned">
+                    <div className="total-content">
+                      <FiActivity className="total-icon" />
+                      <div className="total-info">
+                        <span className="total-label">Total Earned</span>
+                        <span className="total-value">₹{earnings.total_earned.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
-            </>
-          )}
 
-          {/* ================= WALLETS ================= */}
-          {activeTab === "WALLETS" && wallets && (
-            <>
-              {wallets.map((w) => (
-                <div key={w.id} style={{ marginBottom: "25px" }}>
-                  <h4>
-                    {w.wallet_type} Wallet — ₹{w.balance}
-                  </h4>
-
+              {/* Direct Referrals Tab */}
+              {activeTab === "REFERRALS" && referrals && (
+                <div className="tab-content">
+                  <div className="referrals-count">
+                    <FiUserPlus className="count-icon" />
+                    <span>{referrals.results.length} Direct Referrals</span>
+                  </div>
                   <Table
-                    headers={["Date", "Type", "Amount", "Description"]}
-                    rows={w.transactions.map((t) => [
-                      new Date(t.created_at).toLocaleString(),
-                      t.tx_type,
-                      `₹${t.amount}`,
-                      t.description,
+                    headers={["Username", "Email", "Status", "Joined"]}
+                    rows={referrals.results.map((r) => [
+                      r.username,
+                      r.email,
+                      r.is_activated ? "Activated" : "Pending",
+                      new Date(r.created_at).toLocaleDateString(),
                     ])}
                   />
                 </div>
-              ))}
+              )}
+
+              {/* Genealogy Tab */}
+              {activeTab === "GENEOLOGY" && downlines && (
+                <div className="tab-content">
+                  <div className="genealogy-grid">
+                    {Object.entries(downlines).map(([level, data]) =>
+                      level.startsWith("level") ? (
+                        <div key={level} className="level-card">
+                          <div className="level-header">
+                            <FiGitBranch className="level-icon" />
+                            <h4 className="level-title">
+                              {level.replace("_", " ").toUpperCase()}
+                            </h4>
+                            <span className="level-count">{data.count}</span>
+                          </div>
+                          <div className="level-users">
+                            {data.users.map((u) => (
+                              <div key={u.referral_code} className="user-item">
+                                <BiUser className="user-icon" />
+                                <div className="user-info">
+                                  <span className="user-name">{u.username}</span>
+                                  <span className="user-code">{u.referral_code}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Wallets Tab */}
+              {activeTab === "WALLETS" && wallets && (
+                <div className="tab-content">
+                  <div className="wallets-list">
+                    {wallets.map((w) => (
+                      <div key={w.id} className="wallet-card">
+                        <div className="wallet-header">
+                          <div className="wallet-info">
+                            <MdOutlineAccountBalanceWallet className="wallet-icon" />
+                            <h4 className="wallet-title">{w.wallet_type} Wallet</h4>
+                          </div>
+                          <div className="wallet-balance">
+                            <span className="balance-label">Balance</span>
+                            <span className="balance-value">₹{w.balance.toLocaleString()}</span>
+                          </div>
+                        </div>
+
+                        <div className="wallet-transactions">
+                          <h5 className="transactions-title">
+                            <FiCreditCard className="transactions-icon" />
+                            Transaction History
+                          </h5>
+                          <Table
+                            headers={["Date", "Type", "Amount", "Description"]}
+                            rows={w.transactions.map((t) => [
+                              new Date(t.created_at).toLocaleString(),
+                              t.tx_type,
+                              `₹${t.amount}`,
+                              t.description,
+                            ])}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
-        </>
-      )}
+        </div>
+      </div>
     </MainLayout>
   );
 }
 
-/* ================= UI HELPERS ================= */
+/* ================= UI COMPONENTS ================= */
 
-function Tab({ label, value, activeTab, setActiveTab }) {
+function Tab({ label, icon: Icon, value, activeTab, setActiveTab }) {
+  const isActive = activeTab === value;
+  
   return (
     <button
       onClick={() => setActiveTab(value)}
-      style={{
-        padding: "10px 16px",
-        border: "none",
-        borderBottom:
-          activeTab === value ? "3px solid black" : "3px solid transparent",
-        background: "none",
-        cursor: "pointer",
-        fontWeight: activeTab === value ? "bold" : "normal",
-      }}
+      className={`tab-button ${isActive ? 'active' : ''}`}
     >
-      {label}
+      <Icon className="tab-icon" />
+      <span className="tab-label">{label}</span>
     </button>
   );
 }
 
-function Card({ title, value }) {
+function Card({ title, value, icon: Icon, color }) {
   return (
-    <div style={{ border: "1px solid #ddd", padding: "15px" }}>
-      <p>{title}</p>
-      <h3>{value}</h3>
+    <div className={`stat-card stat-card-${color}`}>
+      <div className="card-icon-wrapper">
+        <Icon className="card-icon" />
+      </div>
+      <div className="card-content">
+        <p className="card-title">{title}</p>
+        <h3 className="card-value">{value}</h3>
+      </div>
     </div>
   );
 }
 
 function Table({ headers, rows }) {
   return (
-    <table width="100%" border="1" cellPadding="8">
-      <thead>
-        <tr>
-          {headers.map((h) => (
-            <th key={h}>{h}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, i) => (
-          <tr key={i}>
-            {row.map((cell, j) => (
-              <td key={j}>{cell}</td>
+    <div className="table-wrapper">
+      <table className="data-table">
+        <thead>
+          <tr>
+            {headers.map((h) => (
+              <th key={h}>{h}</th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rows.length === 0 ? (
+            <tr>
+              <td colSpan={headers.length} className="empty-row">
+                No data available
+              </td>
+            </tr>
+          ) : (
+            rows.map((row, i) => (
+              <tr key={i}>
+                {row.map((cell, j) => (
+                  <td key={j}>
+                    {j === 2 && (cell === "Activated" || cell === "Pending") ? (
+                      <span className={`status-badge ${cell === "Activated" ? 'status-active' : 'status-pending'}`}>
+                        {cell === "Activated" ? <FiCheckCircle /> : <FiAlertCircle />}
+                        {cell}
+                      </span>
+                    ) : (
+                      cell
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }
-
-const tabBar = {
-  display: "flex",
-  gap: "10px",
-  borderBottom: "1px solid #ddd",
-  marginBottom: "20px",
-};
-
-const grid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-  gap: "15px",
-};

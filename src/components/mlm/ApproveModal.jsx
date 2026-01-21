@@ -4,6 +4,7 @@ import {
   approveRequest,
   rejectRequest,
 } from "../../api/mlmApi";
+import './ApproveModal.scss'
 
 export default function ApproveModal({ request, onClose, onSuccess }) {
   const [parents, setParents] = useState([]);
@@ -66,67 +67,72 @@ export default function ApproveModal({ request, onClose, onSuccess }) {
   };
 
   return (
-    <div style={overlay}>
-      <div style={modal}>
-        <h3>Approve / Reject</h3>
+    <div className="approve-modal-overlay" onClick={onClose}>
+      <div className="approve-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="approve-modal__header">
+          <h3>Approve / Reject Request</h3>
+          <button className="close-btn" onClick={onClose} aria-label="Close">
+            ×
+          </button>
+        </div>
 
-        <p style={{ fontSize: 14, marginBottom: 10 }}>
+        <div className="approve-modal__user-info">
           <strong>{request.username}</strong>
-          <br />
-          {request.email}
-        </p>
+          <span>{request.email}</span>
+        </div>
 
-        {error && <p style={errorText}>{error}</p>}
+        {error && <div className="approve-modal__error">{error}</div>}
 
-        {/* ================= APPROVE SECTION ================= */}
-        <label style={label}>Parent</label>
-        <select
-          value={parentId}
-          onChange={(e) => {
-            setParentId(e.target.value);
-            setPosition("");
-          }}
-          style={select}
-        >
-          <option value="">Select parent</option>
-          {parents.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.username}
-            </option>
-          ))}
-        </select>
+        <div className="approve-modal__form">
+          <div className="form-group">
+            <label>Select Parent</label>
+            <select
+              value={parentId}
+              onChange={(e) => {
+                setParentId(e.target.value);
+                setPosition("");
+              }}
+            >
+              <option value="">-- Select parent --</option>
+              {parents.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.username}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {selectedParent && (
-          <>
-            <label style={{ ...label, marginTop: 12 }}>
-              Position
-            </label>
-            <div style={{ display: "flex", gap: 10 }}>
-              {selectedParent.left_available && (
-                <button
-                  style={posBtn(position === "LEFT")}
-                  onClick={() => setPosition("LEFT")}
-                >
-                  LEFT
-                </button>
-              )}
-              {selectedParent.right_available && (
-                <button
-                  style={posBtn(position === "RIGHT")}
-                  onClick={() => setPosition("RIGHT")}
-                >
-                  RIGHT
-                </button>
-              )}
+          {selectedParent && (
+            <div className="form-group">
+              <label>Select Position</label>
+              <div className="position-buttons">
+                {selectedParent.left_available && (
+                  <button
+                    className={`position-btn ${position === "LEFT" ? "active" : ""}`}
+                    onClick={() => setPosition("LEFT")}
+                    type="button"
+                  >
+                    <span>LEFT</span>
+                  </button>
+                )}
+                {selectedParent.right_available && (
+                  <button
+                    className={`position-btn ${position === "RIGHT" ? "active" : ""}`}
+                    onClick={() => setPosition("RIGHT")}
+                    type="button"
+                  >
+                    <span>RIGHT</span>
+                  </button>
+                )}
+              </div>
             </div>
-          </>
-        )}
+          )}
+        </div>
 
-        {/* ================= ACTIONS ================= */}
-        <div style={actions}>
+        <div className="approve-modal__actions">
           <button
             onClick={onClose}
-            style={cancelBtn}
+            className="btn btn-cancel"
             disabled={loading}
           >
             Cancel
@@ -134,92 +140,21 @@ export default function ApproveModal({ request, onClose, onSuccess }) {
 
           <button
             onClick={handleReject}
-            style={rejectBtn}
+            className="btn btn-reject"
             disabled={loading}
           >
-            Reject
+            {loading ? "Processing..." : "Reject"}
           </button>
 
           <button
             onClick={handleApprove}
-            style={approveBtn}
-            disabled={loading}
+            className="btn btn-approve"
+            disabled={loading || !parentId || !position}
           >
-            Approve
+            {loading ? "Processing..." : "Approve"}
           </button>
         </div>
       </div>
     </div>
   );
 }
-
-/* ================= STYLES ================= */
-
-const overlay = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.45)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: 1000,
-};
-
-const modal = {
-  background: "#fff",
-  padding: 24,
-  borderRadius: 10,
-  width: 420,
-};
-
-const label = {
-  display: "block",
-  fontSize: 13,
-  marginBottom: 6,
-};
-
-const select = {
-  width: "100%",
-  padding: "8px 10px",
-  borderRadius: 6,
-  border: "1px solid #ccc",
-};
-
-const posBtn = (active) => ({
-  padding: "8px 14px",
-  border: active ? "2px solid #000" : "1px solid #ccc",
-  background: "#fff",
-  cursor: "pointer",
-});
-
-const actions = {
-  marginTop: 24,
-  display: "flex",
-  justifyContent: "flex-end",
-  gap: 10,
-};
-
-const cancelBtn = {
-  padding: "10px 14px",
-  border: "1px solid #ccc",
-  background: "#fff",
-};
-
-const rejectBtn = {
-  padding: "10px 14px",
-  border: "none",
-  background: "#dc2626",
-  color: "#fff",
-};
-
-const approveBtn = {
-  padding: "10px 14px",
-  border: "none",
-  background: "#000",
-  color: "#fff",
-};
-
-const errorText = {
-  color: "red",
-  marginBottom: 10,
-};

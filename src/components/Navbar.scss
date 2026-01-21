@@ -288,10 +288,10 @@
 
     &:hover {
       background-color: #f8f9fa;
-      color: #667eea;
+      color: $border-color;
 
       .dropdownIcon {
-        color: #667eea;
+        color: $border-color;
       }
     }
 

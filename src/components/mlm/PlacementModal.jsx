@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../../api/axiosClient";
 import "./PlacementModal.scss";
+import { FaInfo } from "react-icons/fa6";
+import { FiInfo } from "react-icons/fi";
 
 export default function PlacementModal({ parentId, position, onClose }) {
   const [loading, setLoading] = useState(false);
@@ -250,7 +252,7 @@ function Input({ label, type = "text", required = false, onChange }) {
         {label} {required && <span className="star">*</span>}
       </label>
       {label === "Email" && (
-        <p style={hint}>ℹ️ Each email can be used for a maximum of 3 users</p>
+        <p style={hint}><FiInfo/> Each email can be used for a maximum of 3 users</p>
       )}
       <input
         type={type}
@@ -308,7 +310,7 @@ const submitBtn = {
 const errorText = { color: "#b91c1c", marginBottom: "10px", fontSize: "13px" };
 const errorSmall = { color: "#b91c1c", fontSize: "12px" };
 const success = { color: "#16a34a", fontSize: "12px" };
-const hint = { color: "#6b7280", fontSize: "12px" };
+const hint = { color: "#6b7280", fontSize: "12px" ,textAlign:'center',};
 
 const labelStyle = { fontSize: "13px", marginBottom: "4px", display: "block" };
 const star = { color: "#dc2626", fontWeight: "700" };

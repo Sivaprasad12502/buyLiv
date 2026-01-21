@@ -19,7 +19,7 @@ export default function TreeView() {
     <MainLayout>
       <div style={page}>
         <h2 style={title}>My Genealogy Tree</h2>
-        <p style={hint}>📱 Swipe horizontally to explore your network</p>
+        <p style={hint}> Drag to explore • Scroll to zoom • Click nodes for details</p>
 
         {loading && <Loading />}
 
@@ -50,12 +50,17 @@ const page = {
 
 const title = {
   marginBottom: "6px",
+  textAlign:'center',
+  marginTop:'20px',
+  color:'rgb(56, 239, 125)',
+  fontSize:"30px"
 };
 
 const hint = {
   fontSize: "14px",
   color: "#666",
   marginBottom: "16px",
+  textAlign:'center',
 };
 
 const scrollWrapper = {

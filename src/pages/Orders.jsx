@@ -2,80 +2,147 @@ import { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { fetchMyOrders } from "../api/orderApi";
 import { MEDIA_BASE_URL } from "../utils/constants";
+import { 
+  FiShoppingBag, 
+  FiPackage, 
+  FiCalendar, 
+  FiClock,
+  FiCheckCircle,
+  FiXCircle,
+  FiAlertCircle,
+  FiTruck,
+  FiDollarSign,
+  FiHash,
+  FiImage
+} from "react-icons/fi";
+import { BiBox, BiShoppingBag } from "react-icons/bi";
+import Loading from "../components/Loader/Loading";
+import "./Orders.scss";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMyOrders().then(setOrders);
+    fetchMyOrders()
+      .then(setOrders)
+      .finally(() => setLoading(false));
   }, []);
-  if(orders){
-    console.log("orders from my ordersss",orders)
-  }
+
+  if (loading) return <Loading />;
 
   return (
     <MainLayout>
-      <div style={container}>
-        <h2 style={{ marginBottom: "24px" }}>My Orders</h2>
-
-        {orders.length === 0 && (
-          <p style={{ color: "#666" }}>
-            You have not placed any orders yet.
-          </p>
-        )}
-
-        {orders.map((order) => (
-          <div key={order.id} style={orderCard}>
-            {/* ===== HEADER ===== */}
-            <div style={orderHeader}>
-              <div>
-                <strong>Order #{order.id}</strong>
-                <p style={dateText}>
-                  Placed on{" "}
-                  {new Date(order.created_at).toLocaleString()}
-                </p>
+      <div className="orders-page">
+        <div className="orders-container">
+          
+          {/* Header Section */}
+          <div className="orders-header">
+            <div className="header-content">
+              <BiShoppingBag className="header-icon" />
+              <div className="header-info">
+                <h1>My Orders</h1>
+                <p>View and track all your orders in one place</p>
               </div>
-
-              <StatusBadge status={order.status} />
             </div>
-
-            {/* ===== ITEMS ===== */}
-            <div>
-              {order.items.map((item) => (
-                <div key={item.id} style={itemRow}>
-                  {item.product.image && (
-                    <img
-                      src={`${MEDIA_BASE_URL}${item.product.image}`}
-                      alt={item.product.name}
-                      style={itemImage}
-                    />
-                  )}
-
-                  <div style={{ flex: 1 }}>
-                    <strong>{item.product.name}</strong>
-                    {item.product.short_description && (
-                      <p style={desc}>
-                        {item.product.short_description}
-                      </p>
-                    )}
-                  </div>
-
-                  <div style={qty}>Qty: {item.quantity}</div>
-
-                  <div style={price}>
-                    ₹{item.subtotal}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* ===== FOOTER ===== */}
-            <div style={orderFooter}>
-              <span>Total Amount</span>
-              <strong>₹{order.total_amount}</strong>
+            <div className="orders-count">
+              <FiPackage className="count-icon" />
+              <span>{orders.length} {orders.length === 1 ? 'Order' : 'Orders'}</span>
             </div>
           </div>
-        ))}
+
+          {/* Empty State */}
+          {orders.length === 0 && (
+            <div className="orders-empty">
+              <BiBox className="empty-icon" />
+              <h2>No Orders Yet</h2>
+              <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+            </div>
+          )}
+
+          {/* Orders List */}
+          <div className="orders-list">
+            {orders.map((order) => (
+              <div key={order.id} className="order-card">
+                
+                {/* Order Header */}
+                <div className="order-header">
+                  <div className="order-info">
+                    <div className="order-id">
+                      <FiHash className="info-icon" />
+                      <span>Order {order.id}</span>
+                    </div>
+                    <div className="order-date">
+                      <FiCalendar className="info-icon" />
+                      <span>{new Date(order.created_at).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}</span>
+                      <FiClock className="info-icon-small" />
+                      <span>{new Date(order.created_at).toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}</span>
+                    </div>
+                  </div>
+                  
+                  <StatusBadge status={order.status} />
+                </div>
+
+                {/* Order Items */}
+                <div className="order-items">
+                  {order.items.map((item) => (
+                    <div key={item.id} className="order-item">
+                      
+                      <div className="item-image-wrapper">
+                        {item.product.main_image ? (
+                          <img
+                            src={`${MEDIA_BASE_URL}${item.product.main_image}`}
+                            alt={item.product.name}
+                            className="item-image"
+                          />
+                        ) : (
+                          <div className="item-image-placeholder">
+                            <FiImage />
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="item-details">
+                        <h4 className="item-name">{item.product.name}</h4>
+                        {item.product.long_description && (
+                          <p className="item-description">
+                            {item.product.long_description}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="item-quantity">
+                        <FiPackage className="qty-icon" />
+                        <span>Qty: {item.quantity}</span>
+                      </div>
+
+                      <div className="item-price">
+                        {/* <span className="price-label">Subtotal</span> */}
+                        <span className="price-value">₹{item.subtotal.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Order Footer */}
+                <div className="order-footer">
+                  <div className="footer-total">
+                    {/* <FiDollarSign className="total-icon" /> */}
+                    <span className="total-label">Total Amount</span>
+                    <span className="total-value">₹{order.total_amount.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
@@ -84,91 +151,47 @@ export default function Orders() {
 /* ================= COMPONENTS ================= */
 
 function StatusBadge({ status }) {
-  const colors = {
-    PENDING: "#f39c12",
-    DELIVERED: "#27ae60",
-    CANCELLED: "#c0392b",
+  const statusConfig = {
+    PENDING: {
+      icon: FiClock,
+      label: "Pending",
+      className: "status-pending"
+    },
+    PROCESSING: {
+      icon: FiAlertCircle,
+      label: "Processing",
+      className: "status-processing"
+    },
+    SHIPPED: {
+      icon: FiTruck,
+      label: "Shipped",
+      className: "status-shipped"
+    },
+    DELIVERED: {
+      icon: FiCheckCircle,
+      label: "Delivered",
+      className: "status-delivered"
+    },
+    CANCELLED: {
+      icon: FiXCircle,
+      label: "Cancelled",
+      className: "status-cancelled"
+    },
   };
 
+  const config = statusConfig[status] || {
+    icon: FiAlertCircle,
+    label: status,
+    className: "status-default"
+  };
+
+  const Icon = config.icon;
+
   return (
-    <span
-      style={{
-        padding: "6px 12px",
-        borderRadius: "20px",
-        fontSize: "13px",
-        fontWeight: "600",
-        background: colors[status] || "#bdc3c7",
-        color: "#fff",
-      }}
-    >
-      {status}
+    <span className={`status-badge ${config.className}`}>
+      <Icon className="status-icon" />
+      <span>{config.label}</span>
     </span>
   );
 }
 
-/* ================= STYLES ================= */
-
-const container = {
-  maxWidth: "1000px",
-  margin: "0 auto",
-};
-
-const orderCard = {
-  border: "1px solid #e5e5e5",
-  borderRadius: "12px",
-  padding: "20px",
-  marginBottom: "24px",
-  background: "#fff",
-};
-
-const orderHeader = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: "16px",
-};
-
-const dateText = {
-  fontSize: "14px",
-  color: "#666",
-};
-
-const itemRow = {
-  display: "flex",
-  alignItems: "center",
-  gap: "16px",
-  padding: "12px 0",
-  borderTop: "1px solid #eee",
-};
-
-const itemImage = {
-  width: "70px",
-  height: "70px",
-  objectFit: "cover",
-  borderRadius: "6px",
-};
-
-const desc = {
-  fontSize: "14px",
-  color: "#555",
-};
-
-const qty = {
-  minWidth: "80px",
-  textAlign: "center",
-};
-
-const price = {
-  minWidth: "100px",
-  textAlign: "right",
-  fontWeight: "600",
-};
-
-const orderFooter = {
-  marginTop: "16px",
-  paddingTop: "16px",
-  borderTop: "1px solid #ddd",
-  display: "flex",
-  justifyContent: "space-between",
-  fontSize: "16px",
-};

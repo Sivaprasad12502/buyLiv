@@ -22,6 +22,7 @@
   border-radius: 14px;
   box-shadow: $shadow;
   animation: fadeUp 0.3s ease;
+  scrollbar-width: none;
 
   @media (max-width: 640px) {
     max-width: 100%;
@@ -42,9 +43,18 @@
   }
 
   p {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
     font-size: 12px;
     opacity: 0.9;
     margin-top: 4px;
+    span{
+      color: red;
+      font-size: 15px;
+    }
   }
 }
 
@@ -96,7 +106,7 @@
 
   &:focus {
     outline: none;
-    border-color: $primary-color;
+    border-color: $border-color;
     box-shadow: 0 0 0 2px rgba(40, 116, 240, 0.15);
   }
 }
@@ -166,7 +176,7 @@
   justify-content: flex-end;
   gap: 12px;
   margin-top: 22px;
-  padding-top: 14px;
+  padding: 14px;
   border-top: 1px solid #eee;
 }
 

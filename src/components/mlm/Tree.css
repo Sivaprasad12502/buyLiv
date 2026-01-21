@@ -1,7 +1,7 @@
 .tree-wrapper {
   overflow: auto;
   padding: 60px;
-  background: linear-gradient(135deg, #d7e9ff, #edf4ff);
+  /* background: linear-gradient(135deg, #d7e9ff, #edf4ff); */
 }
 
 /* TREE BASE */
@@ -21,7 +21,7 @@
   left: 50%;
   width: 0;
   height: 30px;
-  border-left: 2px solid #6c757d;
+  border-left: 2px solid rgb(56, 239, 125);
 }
 
 /* LIST ITEMS */
@@ -40,7 +40,7 @@
   top: 0;
   width: 50%;
   height: 30px;
-  border-top: 2px solid #6c757d;
+  border-top: 2px solid rgb(56, 239, 125);;
 }
 
 .tree li::before {
@@ -67,7 +67,7 @@
 .line{
     width: 2px;
     height: 30px;
-    background-color: #6c757d;
+    background-color: rgb(56, 239, 125);
     position: absolute;
     top: 0;
     left: 50%;
@@ -75,7 +75,7 @@
 .line2{
     width: 2px;
     height: 30px;
-    background-color: #6c757d;
+    background-color: rgb(56, 239, 125);
     position: absolute;
     top: 0;
     right: 50%;
@@ -114,7 +114,7 @@
 
 /* EMPTY NODE */
 .empty-node {
-  border: 2px dashed #6c757d;
+  border: 2px dashed rgb(56, 239, 125);;
   background: #f8faff;
   color: #555;
 }

@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { fetchReferralLink } from "../api/referralApi";
+import { 
+  FiLink, 
+  FiCopy, 
+  FiCheck, 
+  FiShare2,
+  FiUserPlus,
+  FiUsers,
+  FiGift
+} from "react-icons/fi";
+import { FaWhatsapp, FaFacebook, FaTwitter, FaTelegram } from "react-icons/fa";
+import { BiShareAlt } from "react-icons/bi";
+import "./ReferalLink.scss";
 
 export default function ReferralLink() {
   const [referralLink, setReferralLink] = useState("");
@@ -30,90 +42,136 @@ export default function ReferralLink() {
     );
   };
 
+  // const facebookShare = () => {
+  //   window.open(
+  //     `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`,
+  //     "_blank"
+  //   );
+  // };
+
+  // const twitterShare = () => {
+  //   const text = encodeURIComponent("Join BuyLiv using my referral link!");
+  //   window.open(
+  //     `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(referralLink)}`,
+  //     "_blank"
+  //   );
+  // };
+
+  // const telegramShare = () => {
+  //   const text = encodeURIComponent(`Join BuyLiv using my referral link: ${referralLink}`);
+  //   window.open(
+  //     `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${text}`,
+  //     "_blank"
+  //   );
+  // };
+
   return (
     <MainLayout>
-      <div style={container}>
-        <h2>Referral Link</h2>
-        <p style={{ color: "#555", marginBottom: "20px" }}>
-          Share this link to invite new users to BuyLiv.
-        </p>
-
-        <div style={card}>
-          <label style={label}>Your Referral Link</label>
-
-          <div style={linkBox}>
-            <input
-              value={referralLink}
-              readOnly
-              style={input}
-            />
-            <button onClick={copyToClipboard} style={copyBtn}>
-              {copied ? "Copied" : "Copy"}
-            </button>
+      <div className="referral-page">
+        <div className="referral-container">
+          
+          {/* Header Section */}
+          <div className="referral-header">
+            <div className="header-content">
+              <FiUserPlus className="header-icon" />
+              <div className="header-info">
+                <h1>Referral Link</h1>
+                <p>Share your unique link and earn rewards when friends join!</p>
+              </div>
+            </div>
           </div>
 
-          <button
-            onClick={whatsappShare}
-            style={whatsappBtn}
-          >
-            Share via WhatsApp
-          </button>
+         
+
+          {/* Referral Link Card */}
+          <div className="link-card">
+            <div className="card-header">
+              <FiLink className="link-icon" />
+              <h2>Your Referral Link</h2>
+            </div>
+
+            <div className="card-body">
+              <div className="link-input-group">
+                <input
+                  value={referralLink}
+                  readOnly
+                  className="link-input"
+                  placeholder="Loading your referral link..."
+                />
+                <button 
+                  onClick={copyToClipboard} 
+                  className={`copy-button ${copied ? 'copied' : ''}`}
+                  disabled={!referralLink}
+                >
+                  {copied ? (
+                    <>
+                      <FiCheck className="button-icon" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <FiCopy className="button-icon" />
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Share Section */}
+              <div className="share-section">
+                <div className="share-header">
+                  <FiShare2 className="share-icon" />
+                  <h3>Share via Social Media</h3>
+                </div>
+
+                <div className="share-buttons">
+                  <button
+                    onClick={whatsappShare}
+                    className="share-btn whatsapp"
+                    disabled={!referralLink}
+                  >
+                    <FaWhatsapp className="share-btn-icon" />
+                    <span>WhatsApp</span>
+                  </button>
+
+                  {/* <button
+                    onClick={facebookShare}
+                    className="share-btn facebook"
+                    disabled={!referralLink}
+                  >
+                    <FaFacebook className="share-btn-icon" />
+                    <span>Facebook</span>
+                  </button> */}
+
+                  {/* <button
+                    onClick={twitterShare}
+                    className="share-btn twitter"
+                    disabled={!referralLink}
+                  >
+                    <FaTwitter className="share-btn-icon" />
+                    <span>Twitter</span>
+                  </button> */}
+
+                  {/* <button
+                    onClick={telegramShare}
+                    className="share-btn telegram"
+                    disabled={!referralLink}
+                  >
+                    <FaTelegram className="share-btn-icon" />
+                    <span>Telegram</span>
+                  </button> */}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tips Section */}
+          
         </div>
       </div>
     </MainLayout>
   );
 }
 
-/* ================= STYLES ================= */
 
-const container = {
-  maxWidth: "600px",
-  margin: "0 auto",
-};
 
-const card = {
-  background: "#fff",
-  border: "1px solid #ddd",
-  borderRadius: "8px",
-  padding: "20px",
-};
-
-const label = {
-  display: "block",
-  marginBottom: "8px",
-  fontWeight: "600",
-};
-
-const linkBox = {
-  display: "flex",
-  gap: "10px",
-  marginBottom: "15px",
-};
-
-const input = {
-  flex: 1,
-  padding: "10px",
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-};
-
-const copyBtn = {
-  padding: "10px 14px",
-  border: "1px solid #000",
-  background: "#000",
-  color: "#fff",
-  borderRadius: "4px",
-  cursor: "pointer",
-};
-
-const whatsappBtn = {
-  marginTop: "10px",
-  width: "100%",
-  padding: "12px",
-  background: "#25D366",
-  color: "#fff",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer",
-  fontSize: "15px",
-};
