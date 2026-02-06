@@ -37,10 +37,10 @@ const BankDetail = () => {
       setLoading(true);
       const data = await fetchBankDetails();
       setLoading(false);
-      console.log("bank details", data);
+
       setBankDetails(data);
     } catch (error) {
-      console.error("Error fetching bank details:", error);
+
       setBankDetails({});
     } finally {
       setLoading(false);
@@ -67,13 +67,11 @@ const BankDetail = () => {
     } else {
       await createBankDetails(formData);
     }
-    console.log("added bank details");
+ 
     getBankDetails();
     setShowForm(false);
   };
-  if (bankDetails) {
-    console.log("bank details in bank details page", bankDetails);
-  }
+
   if (loading) return <Loading />;
   const hasBankDetails = bankDetails && Object.keys(bankDetails).length > 0;
   

@@ -5,11 +5,11 @@ const banners = [
   {
     id: 1,
     title: "Build Your Business Today",
-    subtitle: "Start earning with our MLM e-Commerce Platform",
+    subtitle: "Start earning with our  e-Commerce Platform",
     description:
       "Join our growing community and earn by selling premium products and building your network",
-    // image:
-    //   "https://cdn3.invitereferrals.com/blog/wp-content/uploads/2020/08/06051001/What-is-MLM-min.jpg",
+    image:
+      "	https://admin.buyliv.in/media/products/jewelry-concept-closeup-portrait-wedding-necklace-female-neck.jpg",
     ctaText: "Join Now",
     // ctaLink: "/register",
   },
@@ -19,8 +19,8 @@ const banners = [
     subtitle: "Products people trust and love",
     description:
       "Offer premium, high-demand products that help you grow repeat customers and commissions",
-    // image:
-    //   "https://static.vecteezy.com/system/resources/previews/039/591/305/non_2x/ai-generated-fashion-boutique-showcases-elegant-clothing-collection-in-a-variety-of-colors-generated-by-ai-free-photo.jpg",
+    image:
+      "https://admin.buyliv.in/media/products/gallery/wooden-dipper-sticky-honey.jpg",
     // ctaText: "View Products",
     // ctaLink: "/products",
   },
@@ -29,9 +29,9 @@ const banners = [
     title: "Earn More with Your Network",
     subtitle: "Unlimited income potential",
     description:
-      "Grow your team, track performance, and earn rewards through our transparent MLM system",
-    // image:
-    //   "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2024-01/240117-staff-skin-care-routines-social-2c85d8.jpg",
+      "Grow your team, track performance, and earn rewards through our transparent  system",
+    image:
+      "https://admin.buyliv.in/media/products/Hair_Oil_2.jpg",
     // ctaText: "Learn How It Works",
     // ctaLink: "/how-it-works",
   },
@@ -44,7 +44,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       handleNext();
-    }, 6000);
+    }, 2000);
     return () => clearInterval(timer);
   }, [currentSlide]);
 

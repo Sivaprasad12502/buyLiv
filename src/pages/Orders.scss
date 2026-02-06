@@ -1,4 +1,4 @@
-@import '../styles/variables.scss';
+@import "../styles/variables.scss";
 
 .orders-page {
   min-height: 100vh;
@@ -66,6 +66,24 @@
       }
     }
   }
+  .select-box {
+    padding: 10px 16px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    background: $white;
+    color: $text-primary;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+  }
+  .select-box option {
+    background: $white;
+    color: $text-primary;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px;
+  }
 
   // Empty State
   .orders-empty {
@@ -128,7 +146,7 @@
       padding: 24px 30px;
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
       border-bottom: 2px solid $border-color;
-    //   flex-wrap: wrap;
+      //   flex-wrap: wrap;
       gap: 16px;
 
       .order-info {
@@ -478,7 +496,7 @@
         align-items: flex-start;
 
         .status-badge {
-        //   width: 100%;
+          //   width: 100%;
           justify-content: center;
         }
       }

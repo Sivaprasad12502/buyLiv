@@ -6,7 +6,7 @@ export default function TreeNode({ node, }) {
   const [openPlacement, setOpenPlacement] = useState(null);
 
   if (!node) return null;
-  console.log("tree node:", node);
+
 
   return (
     <li className="tree-li">

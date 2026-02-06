@@ -14,7 +14,7 @@ export default function CheckoutJoining() {
   const location = useLocation();
 
   const product = location.state?.product;
-  console.log("checkout joining product:", product);
+
 
   useEffect(() => {
     fetchProfile().then(setProfile);
@@ -30,10 +30,10 @@ export default function CheckoutJoining() {
         error.response?.data?.error ||
           "Failed to place order. Please try again."
       );
-      console.log("order palce error:", error);
+
     }
   };
-  console.log("profile in checkout joining:", profile);
+
   if (!profile) return <Loading/>;
 
   return (

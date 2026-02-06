@@ -69,12 +69,7 @@ export default function Home() {
       setJoiningStatus(null);
     }
   }, [token]);
-  if (products) {
-    console.log("Products", products);
-  }
-  if (categories) {
-    console.log("categories", categories);
-  }
+
 
   /* ================= SEARCH (BACKEND) ================= */
   useEffect(() => {

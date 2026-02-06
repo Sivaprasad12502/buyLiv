@@ -95,7 +95,7 @@ export default function Dashboard() {
               <FiAlertCircle className="warning-icon" />
               <div className="warning-content">
                 <h3>Account Not Activated</h3>
-                <p>Please activate your account to access MLM features and earnings data.</p>
+                <p>Please activate your account to access our features and earnings data.</p>
               </div>
             </div>
           )}

@@ -62,7 +62,7 @@ export default function ProductDetail() {
         error?.response?.data?.error ||
         "Failed to add to cart. Please try again.";
       setError(message);
-      console.log("add to cart error:", error);
+
     } finally {
       setLoading(false);
     }
@@ -82,7 +82,7 @@ export default function ProductDetail() {
       state: { quantity: qty },
     });
   };
-  console.log("product from productdetail", product);
+
   
   if (!product) return <Loading />;
   const stock = Number(product?.stock);

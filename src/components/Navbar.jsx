@@ -20,9 +20,12 @@ import {
   FiGrid,
   FiLink,
   FiCreditCard,
+  FiInfo,
+  FiShoppingBag,
 } from "react-icons/fi";
 import { BsBoxSeam } from "react-icons/bs";
 import { toast } from "react-toastify";
+import { FaHome, FaShoppingBag } from "react-icons/fa";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -32,8 +35,7 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { cartCount, search, setSearch } = useAuth();
   const [profile, setProfile] = useState(null);
-  const productId=location.pathname.split("/products/")[1]||null;
-  console.log("productId:", productId, 'in navbar')
+  const productId = location.pathname.split("/products/")[1] || null;
 
   useEffect(() => {
     if (!token) return;
@@ -47,10 +49,6 @@ export default function Navbar() {
     navigate("/");
   };
 
-  if (profile) {
-    console.log("profile in nav:", profile);
-  }
-
   useEffect(() => {
     const closeDropdown = () => setDropdownOpen(false);
     document.addEventListener("click", closeDropdown);
@@ -62,7 +60,6 @@ export default function Navbar() {
   // window.addEventListener("click", (e) => {
   //   setDropdownOpen(false);
   // });
-  console.log("Location pathname:", location.pathname)
 
   return (
     <nav className="navStyle">
@@ -73,37 +70,46 @@ export default function Navbar() {
       </div>
 
       {/* ===== SEARCH BOX ===== */}
-      {(location.pathname == "/products" ||
-        location.pathname == "/") && (
-          <div className="searchBox">
-            <FiSearch className="searchIcon" />
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="searchInput"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-        )}
+      {(location.pathname == "/products" || location.pathname == "/") && (
+        <div className="searchBox">
+          <FiSearch className="searchIcon" />
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="searchInput"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      )}
 
       {/* ===== NAVIGATION LINKS ===== */}
       <div className={`rightSection`}>
-        {/* <NavLink to="/" className="navLink ">
+        <NavLink to="/" className="navLink ">
           <FiHome className="navIcon" />
           <span>Home</span>
-        </NavLink> */}
+        </NavLink>
 
         <NavLink to="/products" className="navLink ">
           <FiPackage className="navIcon" />
-          <span>{location.pathname===`/products/${productId}`?'product':'products'}</span>
+          <span>
+            {location.pathname === `/products/${productId}`
+              ? "Product"
+              : "Products"}
+          </span>
         </NavLink>
 
         {!token ? (
-          <NavLink to="/login" className="navLink loginBtn">
-            <FiUser className="navIcon" />
-            <span>Login</span>
-          </NavLink>
+          <>
+            <NavLink to="/about-us" className="navLink ">
+              <FiInfo className="navIcon" />
+              <span>About Us</span>
+            </NavLink>
+            <NavLink to="/login" className="navLink loginBtn">
+              <FiUser className="navIcon" />
+              <span>Login</span>
+            </NavLink>
+          </>
         ) : (
           <>
             {/* ===== CART WITH BADGE ===== */}
@@ -115,10 +121,10 @@ export default function Navbar() {
               <span>Cart</span>
             </NavLink>
 
-            <NavLink to="/orders" className="navLink">
+            {/* <NavLink to="/orders" className="navLink">
               <BsBoxSeam className="navIcon" />
               <span>My Orders</span>
-            </NavLink>
+            </NavLink> */}
 
             {/* ===== USER DROPDOWN ===== */}
             <div
@@ -138,6 +144,14 @@ export default function Navbar() {
 
               {dropdownOpen && (
                 <div className="dropdown">
+                  <Link
+                    to="/orders"
+                    onClick={() => setDropdownOpen(false)}
+                    className="dropdownItem"
+                  >
+                    <FiShoppingBag className="dropdownIcon" />
+                    My orders
+                  </Link>
                   <Link
                     to="/profile"
                     onClick={() => setDropdownOpen(false)}
@@ -185,6 +199,14 @@ export default function Navbar() {
                   >
                     <FiCreditCard className="dropdownIcon" />
                     Bank Details
+                  </Link>
+                  <Link
+                    to="/about-us"
+                    onClick={() => setDropdownOpen(false)}
+                    className="dropdownItem"
+                  >
+                    <FiInfo className="dropdownIcon" />
+                    About Us
                   </Link>
 
                   <button onClick={logout} className="dropdownItem logoutBtn">

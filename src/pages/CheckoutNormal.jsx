@@ -87,9 +87,7 @@ export default function CheckoutNormal() {
   };
 
   if (!profile) return <Loading />;
-  if (cartWithSubtotal) {
-    console.log("cartWithsubtotal:", cartWithSubtotal);
-  }
+
 
   return (
     <MainLayout>

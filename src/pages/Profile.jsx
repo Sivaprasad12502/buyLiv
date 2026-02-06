@@ -54,7 +54,7 @@ export default function Profile() {
         setEditing(false);
       }
     } catch(error) {
-      console.error("failed ", error)
+     
       alert("Failed to update profile");
     } finally {
       setSaving(false);
@@ -65,9 +65,7 @@ export default function Profile() {
     <Loading/>
   );
 
-  if (profile) {
-    console.log("profile data:", profile);
-  }
+
 
   return (
     <MainLayout>

@@ -12,7 +12,7 @@ export const Footer = () => {
         <div className="footer-section brand">
           <h2 className="footer-logo">BuyLiv</h2>
           <p className="footer-desc">
-            BuyLiv is a next-generation MLM e-commerce platform offering
+            BuyLiv is a next-generation  e-commerce platform offering
             high-quality products and genuine income opportunities.
           </p>
 
@@ -29,19 +29,19 @@ export const Footer = () => {
         <div className="footer-section">
           <h4>Quick Links</h4>
           <ul>
-            <li><Link >Products</Link></li>
-            <li><Link >Joining Package</Link></li>
-            <li><Link >My Orders</Link></li>
-            <li><Link >Dashboard</Link></li>
+            <li><Link to={'/products'} >Products</Link></li>
+            <li><Link to={'/joining-packages'}>Joining Package</Link></li>
+            <li><Link to={'/orders'}>My Orders</Link></li>
+            <li><Link to={'/dashboard'}>Dashboard</Link></li>
           </ul>
         </div>
 
         {/* ===== MLM ===== */}
         <div className="footer-section">
-          <h4>MLM</h4>
+          <h4>Career system</h4>
           <ul>
             <li><Link>Referral Program</Link></li>
-            <li><Link >Genealogy Tree</Link></li>
+            <li><Link to={'/tree'}>Genealogy Tree</Link></li>
             <li><Link >Income & Rewards</Link></li>
             <li><Link >Payout Requests</Link></li>
           </ul>
@@ -51,7 +51,7 @@ export const Footer = () => {
         <div className="footer-section">
           <h4>Support</h4>
           <ul>
-            <li><Link >About Us</Link></li>
+            <li><Link to={'/about-us'}>About Us</Link></li>
             <li><Link >Contact Us</Link></li>
             <li><Link >Terms & Conditions</Link></li>
             <li><Link >Privacy Policy</Link></li>
