@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import { fetchProfile } from "../api/profileApi";
-import { buyJoiningPackage } from "../api/orderApi";
+import { buyJoiningPackage, createOrder, verify_payment } from "../api/orderApi";
 import "./CheckoutJoining.scss";
 import { FaMapMarkerAlt, FaUser, FaCity } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -19,22 +19,91 @@ export default function CheckoutJoining() {
   useEffect(() => {
     fetchProfile().then(setProfile);
   }, []);
+  const laodRazorpayScript=()=>{
+    return new Promise((resolve)=>{
+      const script=document.createElement("script");
+      script.src="https://checkout.razorpay.com/v1/checkout.js";
+      script.onload=()=>resolve(true);
+      script.onerror=()=>resolve(false);
+      document.body.appendChild(script)
+    })
+  }
 
   const placeOrder = async () => {
-    try {
-      await buyJoiningPackage(product.id, 1);
-      toast.success("Order placed. Waiting for admin approval.");
-      navigate("/");
-    } catch (error) {
-      toast.error(
-        error.response?.data?.error ||
-          "Failed to place order. Please try again."
-      );
-
+    const loaded=await laodRazorpayScript();
+    if(!loaded){
+      toast.error("Failed to load Razorpay script.");
+      return;
     }
+    try {
+      const response=await createOrder(product.id)
+      if(response){
+
+        console.log(response)
+      }
+      
+      const options={
+      key:"rzp_test_SHWvDe7EZR1cgL",
+      amount:response.amount,
+      currency:"INR",
+      name:"BuyLiv",
+      description:"joining package Payment",
+      order_id:response.razorpay_order_id,
+      handler:async function(response){
+        try {
+          await verify_payment( {razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          })
+          toast.success("Payment successful and order placed.,")
+          navigate("/")
+        } catch (error) {
+          console.log(error)
+          toast.error("failed to verify payment")
+          
+        }
+      },
+      prefill:{
+        name:profile.profile.full_name,
+        email:profile.profile.email,
+        contact:profile.profile.phone,
+      },
+      theme:{
+        color:'#3399cc',
+
+      }
+    }
+        const paymentObject=new window.Razorpay(options);
+    paymentObject.open();
+    paymentObject.on('payment.failed',function(response){
+      toast.error("Payment failed. Please try again.")
+      console.log(response.error);
+    })
+      
+    } catch (error) {
+      console.log(error)
+      toast.error("failed to create order")
+      
+    }
+    
+
+    // try {
+    //   await buyJoiningPackage(product.id, 1);
+    //   toast.success("Order placed. Waiting for admin approval.");
+    //   navigate("/");
+    // } catch (error) {
+    //   toast.error(
+    //     error.response?.data?.error ||
+    //       "Failed to place order. Please try again."
+    //   );
+
+    // }
   };
 
   if (!profile) return <Loading/>;
+  if(profile){
+    console.log(profile)
+  }
 
   return (
     <MainLayout>
@@ -53,7 +122,7 @@ export default function CheckoutJoining() {
               <div className="address-box">
                 <p className="name">
                   <FaUser style={{ marginRight: "6px" }} />
-                  {profile.profile.full_name || " N/A"}
+                  {profile.username || " N/A"}
                 </p>
 
                 <p>
@@ -98,7 +167,7 @@ export default function CheckoutJoining() {
             </div>
 
             <button className="checkout-btn" onClick={placeOrder}>
-              Confirm & Place Order
+              Pay & Place Order
             </button>
           </div>
         </div>

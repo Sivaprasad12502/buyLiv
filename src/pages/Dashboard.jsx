@@ -158,7 +158,7 @@ export default function Dashboard() {
                     />
                     <Card 
                       title="Direct Earnings" 
-                      value={`₹${earnings.direct_referral_earned}`} 
+                      value={`${earnings.direct_referral_earned}`} 
                       icon={FaRupeeSign}
                       color="green"
                     />

@@ -19,6 +19,7 @@ import TreeView from "./pages/TreeView";
 import ApprovalRequests from "./pages/ApprovelRequests";
 import BankDetail from "./pages/BankDetail";
 import AboutUs from "./pages/AboutUs";
+import PayoutRequest from "./pages/PayoutRequest";
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +50,7 @@ function App() {
           <Route path="/tree" element={<TreeView />} />
           <Route path="/mlm/requests" element={<ApprovalRequests />} />
           <Route path="/bankDetails" element={<BankDetail />} />
+          <Route path="/payoutrequest" element={<PayoutRequest />} />
         </Route>
       </Routes>
     </BrowserRouter>

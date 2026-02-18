@@ -25,7 +25,7 @@ import {
 } from "react-icons/fi";
 import { BsBoxSeam } from "react-icons/bs";
 import { toast } from "react-toastify";
-import { FaHome, FaShoppingBag } from "react-icons/fa";
+import { FaHome, FaRupeeSign, FaShoppingBag } from "react-icons/fa";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -65,8 +65,10 @@ export default function Navbar() {
     <nav className="navStyle">
       {/* ===== BRAND ===== */}
       <div className="logoStyle" onClick={() => navigate("/")}>
-        <span className="logo">B</span>
-        <span className="brandName">BuyLiv</span>
+        {/* <span className="logo">B</span> */}
+        <img src="/desk.jpeg" alt="BuyLiv Logo" className="logoImage" />
+        <img src="/buy.jpeg" alt="BuyLiv Logo" className="logomobile" />
+        {/* <span className="brandName">BuyLiv</span> */}
       </div>
 
       {/* ===== SEARCH BOX ===== */}
@@ -199,6 +201,14 @@ export default function Navbar() {
                   >
                     <FiCreditCard className="dropdownIcon" />
                     Bank Details
+                  </Link>
+                  <Link
+                    to="/payoutrequest"
+                    onClick={() => setDropdownOpen(false)}
+                    className="dropdownItem"
+                  >
+                    <FaRupeeSign className="dropdownIcon" />
+                    Payout Request
                   </Link>
                   <Link
                     to="/about-us"

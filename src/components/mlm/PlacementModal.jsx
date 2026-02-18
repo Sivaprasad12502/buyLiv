@@ -225,7 +225,7 @@ export default function PlacementModal({ parentId, position, onClose }) {
               onChange={(e) => handleChange("pan_image", e.target.files[0])}
             />
             <img
-              src={form.pan_image ? URL.createObjectURL(form.pan_image) : ""}
+              src={form.pan_image ? URL.createObjectURL(form.pan_image) : null}
               alt="PAN"
             />
           </div>

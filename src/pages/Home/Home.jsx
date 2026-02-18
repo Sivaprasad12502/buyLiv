@@ -7,7 +7,7 @@ import {
   fetchNormalProducts,
   searchProducts,
 } from "../../api/productApi";
-import { fetchMyOrders } from "../../api/orderApi";
+import { fetchActivationStatus } from "../../api/orderApi";
 import { getJoiningOrderStatus } from "../../utils/joiningOrder";
 import { MEDIA_BASE_URL } from "../../utils/constants";
 import MainLayout from "../../layouts/MainLayout";
@@ -36,7 +36,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [joiningStatus, setJoiningStatus] = useState(null);
 
-  const { search,setSearch  } = useAuth();
+  const { search, setSearch } = useAuth();
   const [searching, setSearching] = useState(false);
   //Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,7 +51,7 @@ export default function Home() {
       const filtered = data.filter(
         (cat) =>
           cat.name.toLowerCase() !== "joining" &&
-          cat.name.toLowerCase() !== "joining package"
+          cat.name.toLowerCase() !== "joining package",
       );
       setCategories(filtered);
     });
@@ -62,14 +62,16 @@ export default function Home() {
     });
 
     if (token) {
-      fetchMyOrders().then((orders) => {
-        setJoiningStatus(getJoiningOrderStatus(orders));
+      fetchActivationStatus().then((data) => {
+        setJoiningStatus(data.is_activated);
       });
     } else {
       setJoiningStatus(null);
     }
   }, [token]);
-
+  if (joiningStatus) {
+    console.log(joiningStatus, "joining status");
+  }
 
   /* ================= SEARCH (BACKEND) ================= */
   useEffect(() => {
@@ -77,7 +79,7 @@ export default function Home() {
       setFilteredProducts(
         activeCategory === "ALL"
           ? products
-          : products.filter((p) => p.category === activeCategory)
+          : products.filter((p) => p.category === activeCategory),
       );
       return;
     }
@@ -107,7 +109,7 @@ export default function Home() {
     setFilteredProducts(
       categoryId === "ALL"
         ? products
-        : products.filter((p) => p.category === categoryId)
+        : products.filter((p) => p.category === categoryId),
     );
   };
 
@@ -124,7 +126,7 @@ export default function Home() {
   const indexOfFirstItem = indexOfLastItem - itemsPerpage;
   const currentProducts = filteredProducts.slice(
     indexOfFirstItem,
-    indexOfLastItem
+    indexOfLastItem,
   );
   const handleNextPage = () => {
     if (indexOfLastItem < filteredProducts.length) {
@@ -141,8 +143,8 @@ export default function Home() {
   return (
     <MainLayout>
       {/* ================= HERO ================= */}
-       <SearchBar/>
-      
+      <SearchBar />
+
       <HeroSlider />
 
       {/* ================= CATEGORIES ================= */}
@@ -204,7 +206,7 @@ export default function Home() {
         {filteredProducts.length > itemsPerpage && (
           <div className="pagination-controls">
             <button onClick={handlePrevPage} disabled={currentPage == 1}>
-                 ‹
+              ‹
             </button>
             <span>
               Page {currentPage} of{" "}
@@ -214,25 +216,21 @@ export default function Home() {
               onClick={handleNextPage}
               disabled={indexOfLastItem >= filteredProducts.length}
             >
-                 ›
+              ›
             </button>
           </div>
         )}
       </section>
 
       {/* ================= JOINING CTA ================= */}
-      {joiningStatus !== "DELIVERED" && (
+      {!joiningStatus && (
         <section className="ctaSection">
           <h2>Joining Package</h2>
-          <p >
-            Required to activate your account and unlock earnings.
-          </p>
+          <p>Required to activate your account and unlock earnings.</p>
 
-          {joiningStatus === null && (
-            <button className="ctaButton" onClick={handleJoinClick}>
-              Buy Joining Package
-            </button>
-          )}
+          <button className="ctaButton" onClick={handleJoinClick}>
+            Buy Joining Package
+          </button>
 
           {joiningStatus === "PENDING" && (
             <p style={{ color: "#b45309" }}>
@@ -253,8 +251,10 @@ function CategoryCard({ label, image, active, onClick }) {
       onClick={onClick}
       className="categoryCard"
       style={{
-        border: active ? "2px solid #38ef7d" : "1px solid #38ef7d",
-        background: active ? "  linear-gradient(135deg, #38ef7d 0%, #11998e 100%)" : "#fff",
+        border: active ? "2px solid #D4AF37" : "1px solid #D4AF37",
+        background: active
+          ? " linear-gradient(135deg, #020A24 0%, #04123A 50%, #06184D 100%)"
+          : "#fff",
         color: active ? "#fff" : "#000",
       }}
     >

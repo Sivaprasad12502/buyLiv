@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import { fetchJoiningProducts } from "../api/productApi";
-import { fetchMyOrders } from "../api/orderApi";
+import { fetchActivationStatus, fetchMyOrders } from "../api/orderApi";
 import { getJoiningOrderStatus } from "../utils/joiningOrder";
 import ImageSlider from "../components/ImageSlider/ImageSlider";
 import "./JoiningPackeges.scss";
@@ -26,8 +26,11 @@ export default function JoiningPackages() {
       setPackages(products.filter((p) => p.is_joining));
     });
 
-    fetchMyOrders().then((orders) => {
-      setJoiningStatus(getJoiningOrderStatus(orders));
+    fetchActivationStatus().then((orders) => {
+      if(orders){
+        console.log(orders)
+      }
+      setJoiningStatus(orders);
     });
   }, [token, navigate]);
 
@@ -37,10 +40,10 @@ export default function JoiningPackages() {
       return;
     }
 
-    if (joiningStatus === "DELIVERED") {
-      alert("Your account is already activated.");
-      return;
-    }
+   if (joiningStatus?.is_activated) {
+    alert("Your account is already activated.");
+    return;
+  }
 
     navigate("/checkout/joining", {
       state: { product },
@@ -61,7 +64,7 @@ export default function JoiningPackages() {
           </p>
         )}
 
-        {joiningStatus === "DELIVERED" && (
+        {joiningStatus?.is_activated && (
           <p className="status success">
             ✅ Your account is activated.
           </p>
@@ -78,7 +81,7 @@ export default function JoiningPackages() {
                 <p className="desc">{pkg.long_description}</p>
               </div>
 
-              {joiningStatus === null && (
+              {!joiningStatus?.is_activated && (
                 <button
                   className="buy-btn"
                   onClick={() => handleBuyNow(pkg)}

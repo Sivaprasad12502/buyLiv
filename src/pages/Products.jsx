@@ -209,7 +209,7 @@ function FilterItem({ label, active, onClick }) {
         // borderRadius: "6px",
         cursor: "pointer",
         background: active
-          ? " linear-gradient(135deg, #38ef7d 0%, #11998e 100%)"
+          ? " linear-gradient(135deg, #020A24 0%, #04123A 50%, #06184D 100%)"
           : "transparent",
         color: active ? "#fff" : "#333",
         marginBottom: "6px",

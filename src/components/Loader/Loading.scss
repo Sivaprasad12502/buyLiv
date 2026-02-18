@@ -1,3 +1,4 @@
+@import '../../styles/variables.scss';
 .loading-container {
   display: flex;
   align-items: center;
@@ -11,7 +12,7 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: rgb(56, 239, 125) ;
+  color:  $border-color;
 
   span {
     display: inline-block;

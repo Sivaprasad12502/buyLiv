@@ -6,7 +6,7 @@ import {
   fetchNormalProducts,
   searchProducts,
 } from "../api/productApi";
-import { fetchMyOrders } from "../api/orderApi";
+import { fetchActivationStatus } from "../api/orderApi";
 import { getJoiningOrderStatus } from "../utils/joiningOrder";
 import { MEDIA_BASE_URL } from "../utils/constants";
 import { Footer } from "../components/Footer/Footer";
@@ -50,8 +50,8 @@ export default function Home() {
     });
 
     if (token) {
-      fetchMyOrders().then((orders) => {
-        setJoiningStatus(getJoiningOrderStatus(orders));
+      fetchActivationStatus().then((data) => {
+        setJoiningStatus(data.is_activated);
       });
     } else {
       setJoiningStatus(null);
@@ -189,7 +189,7 @@ export default function Home() {
       </section>
 
       {/* ================= JOINING CTA ================= */}
-      {joiningStatus !== "DELIVERED" && (
+      {!joiningStatus && (
         <section style={ctaSection}>
           <h2>Joining Package</h2>
           <p style={{ color: "#555" }}>

@@ -1,4 +1,4 @@
-@import '../styles/variables.scss';
+@import "../styles/variables.scss";
 .navStyle {
   display: flex;
   align-items: center;
@@ -27,6 +27,26 @@
 
   &:hover {
     transform: scale(1.05);
+  }
+  .logoImage {
+    display: none;
+    border-radius: 10px;
+    // width: 100px;
+    // height: 100px;
+    object-fit: cover;
+
+    @media screen and (min-width: 769px) {
+      display: block;
+    }
+  }
+  .logomobile {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 50%;
+    @media screen and (min-width: 769px) {
+      display: none;
+    }
   }
 
   .logo {
@@ -150,7 +170,11 @@
         transform: translateX(-50%);
         width: 30px;
         height: 3px;
-        background: linear-gradient(135deg, $border-color 0%, $border-color 100%);
+        background: linear-gradient(
+          135deg,
+          $border-color 0%,
+          $border-color 100%
+        );
         border-radius: 3px 3px 0 0;
       }
     }
@@ -244,9 +268,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  span:last-child{
+  span:last-child {
     display: none;
-
   }
 }
 
@@ -392,8 +415,7 @@
       width: 100%;
       padding: 4px 4px;
       border-radius: 8px;
-     
-      
+
       span {
         display: inline;
       }
@@ -403,7 +425,6 @@
       }
     }
 
-   
     .userBtn {
       width: 100%;
       justify-content: center;
@@ -450,9 +471,9 @@
   .searchBox {
     display: none;
   }
-   .navLink{
+  .navLink {
     padding: 2px 2px;
-    span{
+    span {
       font-size: 12px;
     }
     // svg{
@@ -463,20 +484,19 @@
     //     display: block;
     //   }
     // }
-   }
+  }
   .rightSection {
     gap: 0px;
   }
-  .userBtn{
-    svg{
+  .userBtn {
+    svg {
       display: none;
     }
-    span:first-of-type{
+    span:first-of-type {
       display: none !important;
     }
-    span:last-child{
+    span:last-child {
       display: block;
     }
-
   }
 }
